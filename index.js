@@ -1,7 +1,9 @@
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
+
 const app = express();
+app.use(express.static('dist'));
 app.use(cors());
 app.use(express.json());
 
@@ -79,6 +81,13 @@ app.post('/api/persons', (request, response) => {
     } while (persons.find(person => person.id === id))
     person.id = id
     persons = persons.concat(person)
+    response.json(person)
+})
+
+app.put('/api/persons/:id', (request, response) => {
+    const id = Number(request.params.id)
+    const person = request.body
+    persons = persons.map(p => p.id !== id ? p : person)
     response.json(person)
 })
 
