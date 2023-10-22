@@ -10,10 +10,10 @@ mongoose.set('strictQuery',false)
 mongoose.connect(url)
   .then(result => {
     console.log('connected to MongoDB')
-})
+  })
   .catch((error) => {
     console.log('error connecting to MongoDB:', error.message)
-})
+  })
 
 
 const personSchema = new mongoose.Schema({
@@ -24,20 +24,20 @@ const personSchema = new mongoose.Schema({
 const Person = mongoose.model('Person', personSchema)
 
 // arguments length
-if (process.argv.length == 2) {
+if (process.argv.length === 2) {
   // display all entries
   Person
     .find({})
     .then (persons => {
-      console.log("phonebook:")
+      console.log('phonebook:')
       persons.forEach(p => {
-        console.log(`${p.name} ${p.number}`);
+        console.log(`${p.name} ${p.number}`)
       })
-      mongoose.connection.close();
+      mongoose.connection.close()
     })
 
-} 
-else if (process.argv.length == 5) {
+}
+else if (process.argv.length === 5) {
   // add new entry
   const person = new Person({
     name: process.argv[3],
@@ -45,7 +45,7 @@ else if (process.argv.length == 5) {
   })
   person.save().then(result => {
     console.log(`added ${result.name} number ${result.number} to phonebook`)
-     
+
   })
 
 }
